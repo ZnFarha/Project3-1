@@ -1,0 +1,57 @@
+#root{
+    -fx-background-color: rgb(207, 207, 208);
+}
+
+#outerHoldingPanel{
+    -fx-background-color: rgb(246, 246, 246);
+    -fx-background-radius: 7px;
+}
+
+#innerHoldingPanel{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-background-color: #f6ba50;
+    -fx-background-radius: 7px;
+}
+
+#ImagePane{
+    -fx-background-color: rgba(117, 117, 117, 0.6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-background-radius: 7px;
+}
+
+#title{
+    -fx-font-size: 20px;
+}
+
+.plainText{
+    -fx-fill: #032d48;
+}
+
+.text{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+}
+
+.button{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+    -fx-background-radius: 7px;
+    -fx-background-color: #f6ba50;
+    -fx-text-fill: #ffffff;
+}
+.button:hover{
+    -fx-background-color: #d59f44;
+    -fx-text-fill: #032d48;
+}
+
+.button:pressed{
+    -fx-background-color: #b98c3d;
+    -fx-text-fill: #032d48;
+}
+
+.check-box{
+    -fx-background-color: #f6ba50;
+    -fx-text-fill: #ffffff;
+}
+.check-box:selected{
+    -fx-text-fill: #032d48;
+}
+
