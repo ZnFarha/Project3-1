@@ -1,4 +1,4 @@
-package UI;
+package UI.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
