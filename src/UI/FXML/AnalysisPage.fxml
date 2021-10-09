@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="600.0" stylesheets="@../babywatcherstyle.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.Controllers.AnalysisPageController">
+   <center>
+      <VBox id="outerHoldingPanel" alignment="CENTER" prefHeight="255.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane fx:id="imagePane" prefHeight="226.0" prefWidth="500.0" />
+            <ScrollBar fx:id="scrollBar" prefWidth="600.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <top>
+      <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="plainText" text="Text" BorderPane.alignment="CENTER" />
+   </top>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+</BorderPane>

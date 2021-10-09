@@ -1,27 +1,29 @@
 package UI.Controllers;
 
+import UI.PageController;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class CheckBoxPageController {
+
     @FXML
-    private CheckBox headBox, spineBox, legsBox, armsBox, handsBox, feetBox, mouthBox,earsBox, noseBox, eyesBox ;
+    private VBox checkBoxHolder;
 
     private final boolean[] boxesTicked = new boolean[10];
-    private final String[] order = new String[]{"head","spine","legs","arms","hands","feet","mouth","ears","nose","eyes"};
+    private final String[] order = new String[]{"Head","Spine","Legs","Arms","Hands","Feet","Mouth","Ears","Nose","Eyes"};
 
     @FXML
     public void initialize(){
-        addListeners(headBox,0);
-        addListeners(spineBox,1);
-        addListeners(legsBox,2);
-        addListeners(armsBox,3);
-        addListeners(handsBox,4);
-        addListeners(feetBox,5);
-        addListeners(mouthBox,6);
-        addListeners(earsBox,7);
-        addListeners(noseBox,8);
-        addListeners(eyesBox,9);
+        int[] toAdd = PageController.getInstance().checkBoxesToAdd();
+        for (int i : toAdd) {
+            CheckBox cb = new CheckBox(order[i]);
+            checkBoxHolder.getChildren().add(cb);
+            addListeners(cb, i);
+        }
     }
 
     private void addListeners(CheckBox box, int id){
@@ -36,8 +38,9 @@ public class CheckBoxPageController {
         System.out.println("IMPORT IMAGE");
     }
     @FXML
-    protected void analyse(){
+    protected void analyse() throws IOException {
         System.out.println("START ANALYSIS");
+        PageController.getInstance().open("AnalysisPage");
     }
 
     /* TO REMOVE EVENTUALLY */
