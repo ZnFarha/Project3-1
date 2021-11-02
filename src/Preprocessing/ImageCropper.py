@@ -8,6 +8,7 @@ import pathlib
 import os.path
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
+from skimage import filters
 from csv import reader
 
 
@@ -44,6 +45,20 @@ def loop_through_csv(path, show=True, wait=True, save=False):
                 plt.close()
             if save:
                 save_img(row, subsection)
+
+
+def median_filter(img):
+    return filters.median(img)
+
+
+# edge detection filter, worked well when i attempted
+def sobel_filter(img):
+    return filters.sobel(img)
+
+
+# gaussian filter takes the average of surrounding pixel values
+def gaussian_filter(img):
+    return filters.gaussian(img)
 
 
 resources_path = os.path.join(os.path.split(os.path.split(os.path.dirname(__file__))[0])[0], 'resources')
