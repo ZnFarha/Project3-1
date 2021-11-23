@@ -11,7 +11,7 @@ import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import image as mpimg, pyplot as plt
 
-resources_path = os.path.join(os.path.split(os.path.split(os.path.dirname(__file__))[0])[0], 'resources')
+resources_path = os.path.join(os.path.split(os.path.split(os.path.dirname(__file__))[0])[0], 'resources/images')
 
 
 def read_image(path):
