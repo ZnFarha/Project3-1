@@ -6,7 +6,7 @@ from BasicFunctions import resources_path, save_image, read_image, show_image
 
 
 def save_img(row, subsection):
-    directory = os.path.join(resources_path, 'features', row[0])
+    directory = os.path.join(os.path.normpath(resources_path + os.sep + os.pardir), 'features', row[0])
     pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
     save_image(directory + "/" + row[5], subsection)
 
