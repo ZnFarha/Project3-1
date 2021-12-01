@@ -54,8 +54,11 @@ def square(image):
 
 
 # All together:
-def process(image, crop_thresh=0.2, blur_size=10, bright_strength=2, sharp_strength=1, square_step=True):
+def process(image, crop_thresh=0.2, blur_size=10, bright_strength=1, sharp_strength=1, square_step=True):
     cr, from_x, from_y = crop(image, crop_thresh)
+    if cr.shape[0] == 0 or cr.shape[1] == 0:
+        print('cropped whole image')
+        return np.array([[0, 0]])
     bl = blur(cr, blur_size)
     bi = brighten(bl, bright_strength)
     sh = sharpen(bi, sharp_strength)
@@ -88,7 +91,7 @@ if __name__ == "__main__":
     processed = process(img, crop_thresh=0.2, blur_size=10, bright_strength=2, sharp_strength=2)
     x = processed[0][0]
     y = processed[0][1]
-    print('Amount cropped on left/top: ',x,y)
+    print('Amount cropped on left/top: ', x, y)
     #
     ####
     ###################
