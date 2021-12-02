@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="center">
+      <h1>Hello, User!</h1>
+    </div>
+    <div class="box">
+
+    <h2>
+        About
+    </h2>
+
+    <p>Baby Watcher AI is a state of the art Technology that will help you understand
+    the images that you have captured using the ultrasound scanner.</p>
+    </div>
+    <div class="ybox">
+    <h2>
+        How to use?
+    </h2>
+    <ol>
+      <h5><li>Click on start</li></h5>
+        This will lead you to another page to upload the image
+        <br>
+        <br>
+
+      <h5><li>Upload the image</li></h5>
+        Please make sure you upload the images you took using the babywatcher ultrasound.
+        <br>
+        <br>
+      <h5><li>Click Analyze</li></h5>
+        This might take time as it is processed with the latest technologies. Sit tight as it gets analyzed.
+        <br>
+        <br>
+
+      <h5><li>Enjoy your image</li></h5>
+        The image you will receive will be the same image youi have selected but with bounding boxes that point to where the
+        the found features are. These features can be head, spine and more if visible. The boxes will be labelled and will also
+        has a confidence (How sure we are of the solution).
+    </ol>
+    </div>
+
+{% endblock content %}
