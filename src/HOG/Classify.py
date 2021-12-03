@@ -53,10 +53,10 @@ def draw_boxes(image, features_found):
         end = (row['y'] + row['window_size'][1], row['x'] + row['window_size'][0])
         color = (
             255 - 255 * interp(row['highest_pred'],
-                               [features_found['highest_pred'].min(), features_found['highest_pred'].max()],
+                               [0.95, 1],
                                [0, 1]),
             255 - 255 * (1 - interp(row['highest_pred'],
-                                    [features_found['highest_pred'].min(), features_found['highest_pred'].max()],
+                                    [0.95, 1],
                                     [0, 1])), 0)
         img_rect = cv2.rectangle(img_rect, start, end, color, 2)
         img_rect = cv2.putText(img_rect, row['highest'], (row['y'], row['x'] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9,
