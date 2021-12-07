@@ -94,7 +94,7 @@ def draw_boxes(image, features_found):
     return img_rect
 
 
-def analyse_image(image, svm_models, crop_thresh=0.2, blur_size=10, bright_strength=2, sharp_strength=2,
+def analyse_image(image, svm_models, crop_thresh=0.2, blur_size=10, bright_strength=1, sharp_strength=1,
                   square_step=True, windows=[(64, 64), (128, 128)], window_stride=16, pred_threshold=0.9):
     # 1. Process image and extract HOGs
     processed = Process.process(image, crop_thresh, blur_size, bright_strength, sharp_strength,
