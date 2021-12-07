@@ -33,14 +33,36 @@ def analyse_hog(row, svms):
 
 
 def analyse_svm_results(df, threshold):
-    df['highest'] = df.drop(['x', 'y', 'hog', 'window_size', 'window'], axis=1).idxmax(axis=1)
-    df['highest_pred'] = df.drop(['x', 'y', 'hog', 'window_size', 'window'], axis=1).max(axis=1)
-    df['best_none'] = 1 - df.drop(['x', 'y', 'hog', 'window_size', 'window'], axis=1).min(axis=1)
+    p = df.drop(['x', 'y', 'hog', 'window_size', 'window'], axis=1)
+    df['highest'] = p.idxmax(axis=1)
+    df['highest_pred'] = p.max(axis=1)
+    # df['best_none'] = 1 - p.min(axis=1)
     df = df[df['highest_pred'] >= threshold]
+    df = df.sort_values('highest_pred', ascending=False).drop_duplicates(['highest'])
 
     if stats: print('{} features found?'.format(len(df)))
 
     return df
+
+
+def iou_value(boxA, boxB):
+    # determine the (x, y)-coordinates of the intersection rectangle
+    xA = max(boxA[0], boxB[0])
+    yA = max(boxA[1], boxB[1])
+    xB = min(boxA[2], boxB[2])
+    yB = min(boxA[3], boxB[3])
+    # compute the area of intersection rectangle
+    interArea = max(0, xB - xA + 1) * max(0, yB - yA + 1)
+    # compute the area of both the prediction and ground-truth
+    # rectangles
+    boxAArea = (boxA[2] - boxA[0] + 1) * (boxA[3] - boxA[1] + 1)
+    boxBArea = (boxB[2] - boxB[0] + 1) * (boxB[3] - boxB[1] + 1)
+    # compute the intersection over union by taking the intersection
+    # area and dividing it by the sum of prediction + ground-truth
+    # areas - the interesection area
+    iou = interArea / float(boxAArea + boxBArea - interArea)
+    # return the intersection over union value
+    return iou
 
 
 def draw_boxes(image, features_found):
