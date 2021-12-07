@@ -45,7 +45,14 @@ def analyse_svm_results(df, threshold):
     return df
 
 
-def iou_value(boxA, boxB):
+def iou_value(row, row1, boxes=False):
+    if boxes:
+        boxA = row
+        boxB = row1
+    else:
+        c, c1 = row[['x','y']], row1[['x','y']]
+        boxA = [c[0], c[1], c[0]+row['window_size'][0], c[1]+row['window_size'][1]]
+        boxB = [c1[0], c1[1], c1[0]+row1['window_size'][0], c1[1]+row1['window_size'][1]]
     # determine the (x, y)-coordinates of the intersection rectangle
     xA = max(boxA[0], boxB[0])
     yA = max(boxA[1], boxB[1])
