@@ -12,7 +12,9 @@ def crop(image, thresh):
     temp = temp.replace([0, 255, 254], np.nan)
     temp = temp.dropna(thresh=temp.shape[0] * thresh, axis=1)
     temp = temp.dropna(thresh=temp.shape[1] * thresh, axis=0)
-
+    if 0 in temp.shape:
+        print('Cropped whole image')
+        temp = pd.DataFrame(np.zeros((1,1)))
     from_x, to_x = temp.columns[0], temp.columns[-1]
     from_y, to_y = temp.index[0], temp.index[-1]
     to_x = to_x + 8 - (to_x - from_x) % 8
