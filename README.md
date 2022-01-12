@@ -1,4 +1,4 @@
 # Project3-1
-
-
-Note: Before running the yolo model please check the folder in our drive called 'Yolo Data'. It contains 2 files;  yolov4.cfg and yolov4.weights. Download them and place them under the Model folder in our project. Please do not push this to the rep. Thanks <3
+To run the project, please run BabyWatcherUI.py that can be found in the BabyWatcherUI Folder.
+It will be run as a localhost application. You will be able to inspect it via your web browser.\
+Note: The application will crash if it does not find anything in the image. If that does happen, please reload the page and input an image that actually has baby features that can be detected. This issue will be fixed in phase 3.

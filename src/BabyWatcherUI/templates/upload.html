@@ -1,36 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-
-{% if filename %}
 <div class="center">
-	{% if bbExists == False %}
-		<br>
-			<h3>Sorry we were not able to find anything! Try another image</h3>
-		<br>
-	{% endif %}
+	<br>
+		<h3>Choose the image you would like to know more about!</h3>
+	<br>
+{% if filename %}
 	<div>
 		<img src="{{ url_for('display_image', filename=filename) }}">
 	</div>
 {% else %}
-	<div class="center">
-		<br>
-			<h3>Choose the image you would like to know more about!</h3>
-		<br>
-		{% if ai == yolo %}
-			<form method="post" action="/yolo" enctype="multipart/form-data">
-		{% else %}
-			<form method="post" action="/app2" enctype="multipart/form-data">
-		{% endif %}
-		<dl>
-			<p>
-				<input type="file" name="file" autocomplete="off" required>
-			</p>
-		</dl>
-		<br>
+<form method="post" action="/xx" enctype="multipart/form-data">
+    <dl>
 		<p>
-			<input type="submit" value="Analyze">
+			<input type="file" name="file" autocomplete="off" required>
 		</p>
-	</form>
-	</div>
+    </dl>
+	<br>
+    <p>
+		<input type="submit" value="Analyze">
+	</p>
+</form>
+</div>
 {% endif %}
 {% endblock content %}

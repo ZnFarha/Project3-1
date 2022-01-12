@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def loadModel(weights, cfg):
@@ -8,8 +9,8 @@ def loadModel(weights, cfg):
     yolo.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA_FP16)
     return yolo
 
-
 def getOutput(yolo, img):
+
     blob = cv2.dnn.blobFromImage(img, 1/255,(320,320), (0,0,0), swapRB=True, crop=False)
     yolo.setInput(blob)
     output_layers_names = yolo.getUnconnectedOutLayersNames()
@@ -22,6 +23,7 @@ def getBoxes(layerOutput, W, H):
     boxes = []
     confidences = []
     class_ids = []
+
     for output in layerOutput:
         for detection in output:
             score = detection[5:]
@@ -31,6 +33,7 @@ def getBoxes(layerOutput, W, H):
 
                 box = detection[0:4] * np.array([W, H, W, H])
                 (centerX, centerY, width, height) = box.astype("int")
+
                 x = int(centerX - (width / 2))
                 y = int(centerY - (height / 2))
 
@@ -41,28 +44,25 @@ def getBoxes(layerOutput, W, H):
     return boxes, confidences, class_ids
 
 
-def getImagewithLabel(boxes, confidences, class_ids, image):
+def getImagewithLabel(boxes, confidences, class_ids, img):
     classes = ['Head', 'Arms', 'Hand', 'Spine', 'Legs', 'Feet']
     indexes = cv2.dnn.NMSBoxes(boxes,confidences, 0.4,0.4)
     font = cv2.FONT_HERSHEY_COMPLEX
     colors = np.random.uniform(0,255,size = (len(boxes),3))
-    print(len(indexes))
+    for i in indexes.flatten():
+        x,y,w,h = boxes[i]
+        label = str (classes[class_ids[i]])
+        confi = str(round(confidences[i],2))
+        color = colors[i]
 
-    if len(indexes) != 0:
-        for i in indexes.flatten():
-            x,y,w,h = boxes[i]
-            label = str (classes[class_ids[i]])
-            confi = str(round(confidences[i],2))
-            color = colors[i]
+        if (label == "Head"):
+            color = [ 71.39511963, 201.96006481,  96.11926929]
+        elif (label == "Spine"):
+            color = [255,255,255]
 
-            if (label == "Head"):
-                color = [ 71.39511963, 201.96006481,  96.11926929]
-            elif (label == "Spine"):
-                color = [255,255,255]
-
-            cv2.rectangle(image,(x,y), (x+w, y+h), color, 2)
-            cv2.putText(image,label+" "+confi, (x,y), font, 1, (255,255,255),2)
-    return image
+        cv2.rectangle(img,(x,y), (x+w, y+h), color, 2)
+        cv2.putText(img,label+" "+confi, (x,y), font, 1, (255,255,255),2)
+    return img
 
 
 def getLabelledImage(imagePath, yoloModel):
@@ -70,23 +70,20 @@ def getLabelledImage(imagePath, yoloModel):
     output, W, H = getOutput(yoloModel, img)
     boxes, confidences, class_ids = getBoxes(output, W, H)
     labelledImage = getImagewithLabel(boxes, confidences, class_ids, img)
-    bbExists = True
-    if(len(boxes) == 0):
-        bbExists = False
-    return labelledImage, bbExists
+    return labelledImage
 
 
 def analyzeImage(imPath):
     # Load the yolo model
-    weights = "./Yolo/Model/yolov4.weights"
-    cfg = "./Yolo/Model/yolov4.cfg"
+    weights = "/Users/zein/Desktop/flaskTest/Yolo/Model/yolov4.weights"
+    cfg = "/Users/zein/Desktop/flaskTest/Yolo/Model/yolov4.cfg"
     yolo = loadModel(weights, cfg)
 
     # specify image path
     imagePath = imPath
 
     # get the labelled image
-    finalImage, bbExists = getLabelledImage(imagePath, yolo)
-    return finalImage, bbExists
+    finalImage = getLabelledImage(imagePath, yolo)
+    return finalImage
 
 
