@@ -6,3 +6,8 @@ Note: The application will crash if it does not find anything in the image. If t
 
 Before running the program, make sure you download the model and the cfg file you want to use from https://drive.google.com/drive/folders/1bVZF-2cE-Fuh3Fq47gJchgQyQMZfmhvZ?usp=sharing . 
 Then place them in the correct folder (Model1000 or Model2000) and then change the paths accordingly in Run_Yolo.py .
+
+
+To try out the HOG+SVM model, run the notebook 'Script - HOG approach.ipynb' in src/HOG
+requirements:
+pandas, numpy, cv2 (opencv), matplotlib, sklearn, skimage, pickle, tkinter
