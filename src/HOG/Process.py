@@ -13,16 +13,17 @@ def crop(image, thresh):
     temp = temp.dropna(thresh=temp.shape[0] * thresh, axis=1)
     temp = temp.dropna(thresh=temp.shape[1] * thresh, axis=0)
 
-    from_x, to_x = temp.columns[0], temp.columns[-1]
-    from_y, to_y = temp.index[0], temp.index[-1]
-    to_x = to_x + 8 - (to_x - from_x) % 8
+    if 0 in temp.shape:
+        temp = pd.DataFrame(np.zeros((1, 1)))
+    from_y, to_y = temp.columns[0], temp.columns[-1]
+    from_x, to_x = temp.index[0], temp.index[-1]
     to_y = to_y + 8 - (to_y - from_y) % 8
+    to_x = to_x + 8 - (to_x - from_x) % 8
 
-    cropped = pd.DataFrame(image)
-    cropped = cropped.iloc[from_y:to_y, from_x:to_x]
+    cropped = np.copy(image)
+    cropped = cropped[from_x:to_x, from_y:to_y]
 
     if stats: print('Original shape {} \nNew Shape {}'.format(image.shape, cropped.shape))
-
     return cropped, from_x, from_y
 
 
@@ -64,46 +65,5 @@ def process(image, crop_thresh=0.2, blur_size=10, bright_strength=1, sharp_stren
     sh = sharpen(bi, sharp_strength)
     if square_step:
         ss = square(sh)
-        ss[0][0] = from_x
-        ss[0][1] = from_y
-        return ss
-    else:
-        sh[0][0] = from_x
-        sh[0][1] = from_y
-        return sh
-
-
-if __name__ == "__main__":
-    import os, random, cv2
-    import matplotlib.pyplot as plt
-
-    os.chdir('..')
-    os.chdir('../resources')
-    pwd = os.getcwd()
-
-    img_name = random.choice(os.listdir(pwd + '/images/1'))
-    print(img_name)
-    img = cv2.imread(pwd + '/images/1/' + img_name, 0)
-
-    ####################
-    #####
-    #
-    processed = process(img, crop_thresh=0.2, blur_size=10, bright_strength=2, sharp_strength=2)
-    x = processed[0][0]
-    y = processed[0][1]
-    print('Amount cropped on left/top: ', x, y)
-    #
-    ####
-    ###################
-
-    diff1, diff2 = img.shape[0] - processed.shape[0], img.shape[1] - processed.shape[1]
-    d1 = int(diff1 / 2)
-    d2 = d1
-    d3 = int(diff2 / 2)
-    d4 = d3
-    if diff1 % 2 != 0:
-        d2 += 1
-    if diff2 % 2 != 0:
-        d4 += 1
-    processed = np.pad(processed, ((d1, d2), (d3, d4)), 'constant', constant_values=255)
-    plt.imshow(np.concatenate((img, processed), axis=1), cmap='gray')
+        return ss, from_x, from_y
+    return sh, from_x, from_y
