@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 def loadModel(weights, cfg):
@@ -75,8 +74,8 @@ def getLabelledImage(imagePath, yoloModel):
 
 def analyzeImage(imPath):
     # Load the yolo model
-    weights = "/Users/zein/Desktop/flaskTest/Yolo/Model/yolov4.weights"
-    cfg = "/Users/zein/Desktop/flaskTest/Yolo/Model/yolov4.cfg"
+    weights = "/Users/zein/IdeaProjects/01-CodePhase2/src/Yolo/Model2000/yolov4.weights"
+    cfg = "/Users/zein/IdeaProjects/01-CodePhase2/src/Yolo/Model2000/yolov4.cfg"
     yolo = loadModel(weights, cfg)
 
     # specify image path
